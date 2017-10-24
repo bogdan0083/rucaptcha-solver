@@ -1,0 +1,38 @@
+{
+  "name": "rucaptcha-client",
+  "version": "0.0.0",
+  "description": "Yet another rucaptcha client",
+  "main": "src/rucaptcha.js",
+  "scripts": {
+    "test": "jest --forceExit"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "delay": "^2.0.0",
+    "eslint": "^3.17.1",
+    "eslint-config-standard": "^7.0.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "jest": "^20.0.0",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "files": [
+    "src"
+  ],
+  "jest": {
+    "testMatch": [
+      "**/test/*.js"
+    ],
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mz": "^2.7.0",
+    "request-promise": "^4.2.2"
+  }
+}
