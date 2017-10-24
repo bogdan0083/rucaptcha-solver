@@ -1,8 +1,8 @@
 {
-  "name": "rucaptcha-client",
+  "name": "rucaptcha-solver",
   "version": "0.0.0",
   "description": "Yet another rucaptcha client",
-  "main": "src/rucaptcha.js",
+  "main": "./index.js",
   "scripts": {
     "test": "jest --forceExit"
   },
@@ -19,7 +19,7 @@
     "request-promise-native": "^1.0.5"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 7.0.0"
   },
   "files": [
     "src"

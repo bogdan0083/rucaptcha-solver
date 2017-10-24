@@ -12,7 +12,7 @@ README in russian is available [here](#asd)
 - [Why](#why)
 
 ## Installation
-> #### rucaptcha-solver requires Node v7.6.0 or greater
+> #### rucaptcha-solver requires Node v7.0.0 or greater
 
 ##### `npm i rucaptcha-solver`
 
