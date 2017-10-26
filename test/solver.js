@@ -45,12 +45,6 @@ describe('solver', () => {
     }).toThrow();
   });
 
-  it('should throw error if no options are not passed to constructor', () => {
-    expect(() => {
-      const solver = new Solver();
-    }).toThrow();
-  });
-
   it('should throw error if no api key is defined', () => {
     expect(() => {
       const solver = new Solver({});
@@ -58,6 +52,7 @@ describe('solver', () => {
   });
 
 });
+
 describe('solver.solve', () => {
   let solver;
 
@@ -116,6 +111,7 @@ describe('solver._fetchImage', () => {
   });
 
 });
+
 describe('solver._imageToBase64', () => {
 
   let solver;
@@ -140,4 +136,5 @@ describe('solver._imageToBase64', () => {
       expect(e.code).toBe('ENOENT');
     }
   });
+  
 });
