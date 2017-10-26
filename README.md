@@ -161,7 +161,7 @@ solver.solve('https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg')
     // we can get balance from our account if we want
     return solver.getBalance();
   }))
-  .then(balanceNum => console.log(`Your balance: balanceNum`))
+  .then(balanceNum => console.log(`Your balance: ${balanceNum}`))
 
   // handle error
   .catch(e => console.error(e));
