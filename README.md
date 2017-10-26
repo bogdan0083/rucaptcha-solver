@@ -23,8 +23,7 @@ const Solver = require('rucaptcha-solver');
 
 // create new Solver instance
 const solver = new Solver({
-  apiKey: '1abc234de56fab7c89012d34e56fa7b8', // Required
-  retryInterval: 3000 // default value. Optional
+  apiKey: '1abc234de56fab7c89012d34e56fa7b8' // Required
 });
 
 // async/await example. For example with promises check "Examples" link above
@@ -150,8 +149,7 @@ const Solver = require('rucaptcha-solver');
 
 // create new Solver instance
 const solver = new Solver({
-  apiKey: 'YOUR_API_KEY',
-  retryInterval: 3000
+  apiKey: 'YOUR_API_KEY'
 });
 
 // solve captcha
@@ -159,20 +157,15 @@ solver.solve('https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg')
   .then((({id, answer}) => {
     console.log(`Captcha answer is ${answer}`);
     console.log(`Your captcha id is ${id}`);
+
     // we can get balance from our account if we want
-    // return solver.getBalance();
-
-    // we can report user if we received incorrect captcha answer
-    // return solver.report(id);
+    return solver.getBalance();
   }))
-  // if solver.report returned
-  // .then(msg => console.log(msg))
-
-  // if solver.getBalance returned
-  // .then(balanceNum => console.log(`Your balance: balanceNum`))
+  .then(balanceNum => console.log(`Your balance: balanceNum`))
 
   // handle error
   .catch(e => console.error(e));
 ```
+
 ## Why
 There are few Rucaptcha clients for node js out there, but some of them are deprecated and don't support promises and async/await. This client solves all the problems.
