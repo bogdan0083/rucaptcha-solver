@@ -154,7 +154,7 @@ const solver = new Solver({
 
 // solve captcha
 solver.solve('https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg')
-  .then((({id, answer}) => {
+  .then(({id, answer}) => {
     console.log(`Captcha answer is ${answer}`);
     console.log(`Your captcha id is ${id}`);
 

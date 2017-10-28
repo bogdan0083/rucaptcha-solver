@@ -1,6 +1,6 @@
 {
   "name": "rucaptcha-solver",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Yet another rucaptcha client",
   "main": "./index.js",
   "scripts": {
@@ -34,7 +34,8 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "mz": "^2.7.0",
-    "request-promise": "^4.2.2",
+    "delay": "^2.0.0",
+    "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   }
 }
