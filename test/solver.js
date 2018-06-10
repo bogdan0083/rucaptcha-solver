@@ -87,12 +87,12 @@ describe('solver.getBalance', () => {
 
   it('should return fake balance', async () => {
     const balance = await solver.getBalance();
-    expect(balance).toBe('34.60');
+    expect(balance).toBe(34.6);
   });
 
-  it('should have balance typeof string', async () => {
+  it('should have balance typeof number', async () => {
     const balance = await solver.getBalance();
-    expect(typeof balance).toBe('string');
+    expect(typeof balance).toBe('number');
   });
 
 });
@@ -103,13 +103,25 @@ describe('solver._fetchImage', () => {
     solver = new Solver({ apiKey: fakeApiKey });
   });
 
-  it('should return buffer', async () => {
-    const buf1 = await solver._fetchImage(validPaths[0]);
-    const buf2 = await solver._fetchImage(validPaths[1]);
-    expect(buf1 instanceof Buffer).toBeTruthy();
-    expect(buf2 instanceof Buffer).toBeTruthy();
+  it('should return buffer when passed image local path', async () => {
+    const buf = await solver._fetchImage(validPaths[0]);
+    expect(buf instanceof Buffer).toBeTruthy();
   });
 
+  it('should return buffer when passed image url', async () => {
+    const buf = await solver._fetchImage(validPaths[1]);
+    expect(buf instanceof Buffer).toBeTruthy();
+  });
+
+  it('should return buffer when passed base64', async () => {
+    const buf = await solver._fetchImage('aGk=');
+    expect(buf instanceof Buffer).toBeTruthy();
+  });
+
+  it('should return buffer when passed Buffer object', async () => {
+    const buf = await solver._fetchImage(Buffer.from('YnJv', 'base64'));
+    expect(buf instanceof Buffer).toBeTruthy();
+  });
 });
 
 describe('solver._imageToBase64', () => {

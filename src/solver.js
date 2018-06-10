@@ -23,19 +23,20 @@ class Solver {
   }
 
   /**
-   * Solve captcha image, defined in imgPath parameter
+   * Solve captcha image, defined in image parameter
    *
-   * @param  {String} imgPath img path. Can be remote or local img file
-   * @param  {Function} cb callback
+   * @param  {String|Buffer} [image] variable is a img path or Buffer object or base64 text.
+   * Image path can be remote or local img file.
+   * @param options
    * @return {Promise<Object>} resolves to object with captcha id and answer
    * @example
    * const solver = new Solver({ apiKey: 'you-api-key' });
    * const { id, answer } = await solver.solve('https://somewebsite/image.jpg');
    */
-  async solve(imgPath, options = {}) {
+  async solve(image, options = {}) {
     try {
       // get buffer of image
-      const buffer = await this._fetchImage(imgPath);
+      const buffer = await this._fetchImage(image);
       // get base64 string
       const base64Image = await this._imageToBase64(buffer);
       const id = await this._sendImage(base64Image, options);
@@ -48,7 +49,7 @@ class Solver {
 
   /**
    * get balance on your rucaptcha account
-   * @return {Promise<String>} balance
+   * @return {Promise<Number>} balance
    */
   async getBalance() {
     try {
@@ -162,20 +163,20 @@ class Solver {
    * Fetch image from given path
    * path can be local (some file on your hard drive)
    * or remote (from wikipedia, for example)
-   * @param  {String} imgPath image path
+   * @param  {String|Buffer} [image] variable is a img path or Buffer object or base64 text.
+   * Image path can be remote or local img file.
    * @return {Promise<Buffer>} resolves to the buffer
    */
-  async _fetchImage(imgPath) {
+  async _fetchImage(image) {
     try {
-      const remote = /^(http|https)/.test(imgPath);
-      if (remote) {
-        // remote
-        const buf = await request.get({ url: imgPath, encoding: null });
-        return buf;
-      } else {
-        // local
-        const buf = await fs.readFile(imgPath);
-        return buf;
+      if (/^(http|https)/.test(image)) {      // passed url
+        return await request.get({ url: image, encoding: null });
+      } else if (image instanceof Buffer) {   // passed Buffer object with image
+        return image;
+      } else if (typeof image === 'string') { // passed base64
+        return Buffer.from(image, 'base64');
+      } else {                                // passed local file
+        return await fs.readFile(image);
       }
     } catch (e) {
       throw e;
