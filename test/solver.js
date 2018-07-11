@@ -124,7 +124,7 @@ describe('solver._fetchImage', () => {
   });
 });
 
-describe('solver._imageToBase64', () => {
+describe('solver._bufferToBase64', () => {
 
   let solver;
 
@@ -134,7 +134,7 @@ describe('solver._imageToBase64', () => {
 
   it('should return base64 string from image', async () => {
     const buf = await solver._fetchImage(validPaths[0]);
-    const base64 = solver._imageToBase64(buf);
+    const base64 = solver._bufferToBase64(buf);
     expect(typeof base64).toBe('string');
     expect(base64).toMatch(/^.*=$/);
   });
@@ -142,11 +142,11 @@ describe('solver._imageToBase64', () => {
   it('should be rejected', async () => {
     try {
       const buf = await solver._fetchImage(validPaths[0]);
-      const base64 = solver._imageToBase64(buf);
+      const base64 = solver._bufferToBase64(buf);
     } catch (e) {
       expect(typeof e).toBe('object');
       expect(e.code).toBe('ENOENT');
     }
   });
-  
+
 });
