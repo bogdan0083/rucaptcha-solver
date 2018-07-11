@@ -1,20 +1,18 @@
-const path = require("path");
-const querystring = require("querystring");
-const request = require("request-promise-native");
-const fs = require("mz/fs");
-const { noop, extend } = require("lodash");
-const delay = require("delay");
+const path = require('path');
+const querystring = require('querystring');
+const request = require('request-promise-native');
+const fs = require('mz/fs');
+const { noop, extend } = require('lodash');
+const delay = require('delay');
 
 // check if string is base64
 const isBase64 = str =>
-  /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(
-    str
-  );
+  /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(str);
 
 class Solver {
   constructor(settings) {
-    if (!settings || typeof settings !== "object") {
-      throw new Error("No settings found for solver");
+    if (!settings || typeof settings !== 'object') {
+      throw new Error('No settings found for solver');
     }
 
     this.apiKey = settings.apiKey;
@@ -24,8 +22,8 @@ class Solver {
       throw new Error(`Can't find api key`);
     }
 
-    this.POST_URL = "http://rucaptcha.com/in.php";
-    this.GET_URL = "http://rucaptcha.com/res.php";
+    this.POST_URL = 'http://rucaptcha.com/in.php';
+    this.GET_URL = 'http://rucaptcha.com/res.php';
   }
 
   /**
@@ -59,10 +57,10 @@ class Solver {
    */
   async getBalance() {
     try {
-      const queryObj = { key: this.apiKey, action: "getbalance" };
+      const queryObj = { key: this.apiKey, action: 'getbalance' };
 
       const balance = await request.get({
-        url: this.GET_URL + "?" + querystring.stringify(queryObj)
+        url: this.GET_URL + '?' + querystring.stringify(queryObj)
       });
 
       return parseFloat(balance);
@@ -72,9 +70,9 @@ class Solver {
   }
 
   async report(captchaId) {
-    const queryObj = { key: this.apiKey, action: "reportbad" };
+    const queryObj = { key: this.apiKey, action: 'reportbad' };
     return await request.get({
-      url: this.GET_URL + "?" + querystring.stringify(queryObj)
+      url: this.GET_URL + '?' + querystring.stringify(queryObj)
     });
   }
 
@@ -87,21 +85,18 @@ class Solver {
   async _sendImage(base64Image, options) {
     try {
       // build query
-      const queryObj = extend(
-        {
-          key: this.apiKey,
-          method: "base64",
-          json: 1
-        },
-        options
-      );
+      const queryObj = extend({
+        key: this.apiKey,
+        method: 'base64',
+        json: 1
+      }, options);
 
       // send file
       const url = this.POST_URL + `?${querystring.stringify(queryObj)}`;
 
       const json = await request.post({
         url: url,
-        form: { body: base64Image }
+        form: { body : base64Image }
       });
 
       // parse json
@@ -128,7 +123,7 @@ class Solver {
       // build query
       const queryObj = {
         key: this.apiKey,
-        action: "get",
+        action: 'get',
         id: captchaId,
         json: 1
       };
@@ -152,7 +147,7 @@ class Solver {
           result = response.request;
           break;
         } else if (
-          response.request !== "CAPCHA_NOT_READY" &&
+          response.request !== 'CAPCHA_NOT_READY' &&
           response.status === 0
         ) {
           // throw if we have error
@@ -178,17 +173,13 @@ class Solver {
    */
   async _fetchImage(image) {
     try {
-      if (/^(http|https)/.test(image)) {
-        // passed url
+      if (/^(http|https)/.test(image)) {      // passed url
         return await request.get({ url: image, encoding: null });
-      } else if (image instanceof Buffer) {
-        // passed Buffer object with image
+      } else if (image instanceof Buffer) {   // passed Buffer object with image
         return image;
-      } else if (isBase64(image)) {
-        // passed base64
-        return Buffer.from(image, "base64");
-      } else {
-        // passed local file
+      } else if (isBase64(image)) {           // passed base64
+        return Buffer.from(image, 'base64');
+      } else {                                // passed local file
         return await fs.readFile(image);
       }
     } catch (e) {
@@ -201,7 +192,7 @@ class Solver {
    * @return {Promise<String>} base64 representation of image
    */
   _bufferToBase64(buf) {
-    return buf.toString("base64");
+    return buf.toString('base64');
   }
 }
 
