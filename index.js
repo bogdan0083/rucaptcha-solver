@@ -1,5 +1,5 @@
 /**
- * Rucaptcha Solver 1.1.4
+ * Rucaptcha Solver 1.1.6
  * Yet Another Rucaptcha client
  */
 
