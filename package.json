@@ -4,7 +4,7 @@
   "description": "Yet another rucaptcha client",
   "main": "./index.js",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "jest"
   },
   "license": "MIT",
   "devDependencies": {
@@ -14,6 +14,7 @@
     "eslint-config-standard": "^7.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
+    "husky": "^1.0.0-rc.13",
     "jest": "^20.0.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
@@ -30,6 +31,14 @@
       "**/test/*.js"
     ],
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "npm test",
+        "npm run hello"
+      ]
+    }
   },
   "dependencies": {
     "lodash": "^4.17.4",
