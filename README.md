@@ -2,8 +2,6 @@
 
 Rucaptcha client for small/big captcha with **Promises** and **async/await support**
 
-README in russian is available [here](#asd)
-
 - [Installation](#installation)
 - [How to use](#how-to-use)
 - [Constructor](#constructor)
