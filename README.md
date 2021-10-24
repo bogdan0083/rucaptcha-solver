@@ -27,14 +27,19 @@ const solver = new Solver({
 // async/await example. For example with promises check "Examples" link above
 (async () => {
 
-  // wikipedia link to captcha
-  const captchaUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg';
+  try {
+    // wikipedia link to captcha
+    const captchaUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg';
 
-  // solve captcha
-  const { id, answer } = await solver.solve(captchaUrl);
+    // solve captcha
+    const { id, answer } = await solver.solve(captchaUrl);
 
-  console.log(`Your captcha answer is ${answer}`);
-  console.log(`Your captcha id is ${id}`);
+    console.log(`Your captcha answer is ${answer}`);
+    console.log(`Your captcha id is ${id}`);
+  } catch (err) {
+    console.log('Oh, no! We got the error!');
+    console.log(err.message);
+  }
 
 })();
 ```
